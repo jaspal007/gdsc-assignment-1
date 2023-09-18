@@ -70,3 +70,7 @@ You are required to create a **single page application** that implements a multi
 # Resources
 A raw json file to be used as a dummy data.
   > [<img alt="Resource" width="60px" src="https://imgs.search.brave.com/m39IRHRzwjCXfmZJCYO_ZInvWYS_P_Rd7fBn9MfJl08/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/a2luZHBuZy5jb20v/cGljYy9tLzE4MS0x/ODE3MDEwX2dpdGh1/Yi1naXRodWItaWNv/bi1oZC1wbmctZG93/bmxvYWQucG5n" />](/sample.json)
+
+
+# References
+> image references: [How to contribute on github](https://www.dataschool.io/how-to-contribute-on-github/)
