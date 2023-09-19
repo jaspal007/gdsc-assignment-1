@@ -23,7 +23,7 @@ You are required to create a **single page application** that implements a multi
   1. Go to the source repository and fork it.
      > ![forking a repo](https://www.dataschool.io/content/images/2020/06/github-02a.png)
   2. Clone the repository.
-     > Navigate to the forked repo in your github and clone it in your local machine.
+     > Navigate to the forked repo in your github and clone it in your local machine, using the command `git clone URL_OF_YOUR_FORK`
      ![cloning a repo](https://www.dataschool.io/content/images/2020/06/github-03.png)
   3. Now in the sub directory of that project create folder of your name `YOUR_NAME`.
   4. In that folder run the following command:
