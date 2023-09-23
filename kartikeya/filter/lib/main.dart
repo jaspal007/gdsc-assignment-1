@@ -1,5 +1,5 @@
  import 'package:flutter/material.dart';
-import 'package:filter/model/product.dart'; // Import your data from product.dart
+import 'package:filter/model/product.dart';  
 
 void main() => runApp(MyApp());
 
@@ -29,14 +29,44 @@ class _ProductListPageState extends State<ProductListPage> {
   String? selectedCategory;
 
   List<String> selectedCategories = [];
+  bool isSortingByName = false;
+  bool isSortingByAge = false;
+  bool isSortingByDOB = false;
 
   @override
   Widget build(BuildContext context) {
+    List<Person> sortedPersonList = [...personList];
+
+    if (isSortingByName) {
+      sortedPersonList.sort((a, b) => a.name.compareTo(b.name));
+    } else if (isSortingByAge) {
+      sortedPersonList.sort((a, b) => a.age.compareTo(b.age));
+    } else if (isSortingByDOB) {
+      sortedPersonList.sort((a, b) => a.dob.compareTo(b.dob));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('SORT AND FILTER'),
         centerTitle: true,
         actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: (String value) {
+              setState(() {
+                isSortingByName = value == 'Name';
+                isSortingByAge = value == 'Age';
+                isSortingByDOB = value == 'DOB';
+              });
+            },
+            itemBuilder: (BuildContext context) {
+              return categories.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
@@ -45,26 +75,58 @@ class _ProductListPageState extends State<ProductListPage> {
                 delegate: DataSearch(personList: personList),
               );
             },
-          )
+          ),
         ],
       ),
       body: ListView.builder(
-        itemCount: personList.length,
+        itemCount: sortedPersonList.length,
         itemBuilder: (context, index) {
-          final person = personList[index];
-          return ListTile(
-            title: Text(person.name),
-            // You can add more details here if needed.
-            // subtitle: Text("DOB: ${person.dateOfBirth}, Age: ${person.age}"),
-            onTap: () {
-              // Handle when a person is tapped.
-            },
-          );
+          final person = sortedPersonList[index];
+      return Container(
+  margin: EdgeInsets.all(8),
+  padding: EdgeInsets.all(8),
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(12),
+    child: Container(
+      color: Color.fromARGB(133, 156, 216, 233),
+      child: ListTile(
+        title: Center(
+          child: Text(
+            person.name,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+        ),
+        subtitle: Center(
+          child: Text(
+            'DOB: ${person.dob.day}/${person.dob.month}/${person.dob.year}', // Format the DOB as needed
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 14,
+            ),
+          ),
+        ),
+        onTap: () {
+            
+        },
+      ),
+    ),
+  ),
+);
+
+
+
         },
       ),
     );
   }
 }
+
+
+
 
 class DataSearch extends SearchDelegate<String> {
   final List<Person> personList;
@@ -110,7 +172,7 @@ class DataSearch extends SearchDelegate<String> {
         return ListTile(
           title: Text(person.name),
           onTap: () {
-            // Handle when a person is tapped.
+             
           },
         );
       },

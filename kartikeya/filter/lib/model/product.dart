@@ -1,34 +1,116 @@
  class Person {
   final String name;
-  final String dateOfBirth;
+  final DateTime dob; // Date of Birth
   final int age;
 
   Person({
     required this.name,
-    required this.dateOfBirth,
+    required this.dob,
     required this.age,
   });
 }
 
-final List<Person> personList = [
-  Person(name: 'John Doe', dateOfBirth: '1990-01-01', age: 33),
-  Person(name: 'Jane Smith', dateOfBirth: '1985-02-02', age: 38),
-  Person(name: 'Robert Johnson', dateOfBirth: '1992-03-03', age: 31),
-  Person(name: 'Michael Brown', dateOfBirth: '1980-04-04', age: 43),
-  Person(name: 'Emily Davis', dateOfBirth: '1995-05-05', age: 28),
-  Person(name: 'Sarah Miller', dateOfBirth: '1993-06-06', age: 30),
-  Person(name: 'Jessica Wilson', dateOfBirth: '1988-07-07', age: 35),
-  Person(name: 'Mohammed Patel', dateOfBirth: '1991-08-08', age: 32),
-  Person(name: 'Sophia Taylor', dateOfBirth: '1987-09-09', age: 36),
-  Person(name: 'Jacob Thomas', dateOfBirth: '1996-10-10', age: 27),
-  Person(name: 'Mia Jackson', dateOfBirth: '1989-11-11', age: 34),
-  Person(name: 'Lucas White', dateOfBirth: '1994-12-12', age: 29),
-  Person(name: 'Grace Harris', dateOfBirth: '1997-01-13', age: 26),
-  Person(name: 'James Martin', dateOfBirth: '1986-02-14', age: 37),
-  Person(name: 'Oliver Thompson', dateOfBirth:'1984-03-15' ,age :39 ),
-  Person(name:'Amelia Garcia' ,dateOfBirth:'1998-04-16' ,age :25 ),
-  Person(name:'Muhammad Martinez' ,dateOfBirth:'1983-05-17' ,age :40 ),
-  Person(name:'Freddie Robinson' ,dateOfBirth:'1982-06-18' ,age :41 ),
-  Person(name:'Poppy Clark' ,dateOfBirth:'1999-07-19' ,age :24 ),
-  Person(name:'Willow Rodriguez' ,dateOfBirth:'2000-08-20' ,age :23 ),
+
+  final List<Person> personList = [
+  Person(
+    name: 'Kartikeya Singh',
+    dob: DateTime(2002, 3, 1),
+    age: DateTime.now().year - 1990,
+  ),
+  Person(
+    name: 'Roshni Gupta',
+    dob: DateTime(2003, 10, 23),
+    age: DateTime.now().year - 1985,
+  ),
+  Person(
+    name: 'Ashish Patel',
+    dob: DateTime(1992, 3, 3),
+    age: DateTime.now().year - 1992,
+  ),
+  Person(
+    name: 'Anuj Kushwaha',
+    dob: DateTime(1980, 4, 4),
+    age: DateTime.now().year - 1980,
+  ),
+  Person(
+    name: 'Jaspal Singh',
+    dob: DateTime(1995, 5, 5),
+    age: DateTime.now().year - 1995,
+  ),
+  Person(
+    name: 'Subham Kakde',
+    dob: DateTime(1993, 6, 6),
+    age: DateTime.now().year - 1993,
+  ),
+  Person(
+    name: 'Devatraj Bhattacharya',
+    dob: DateTime(1988, 7, 7),
+    age: DateTime.now().year - 1988,
+  ),
+  Person(
+    name: 'Ritwik Singh',
+    dob: DateTime(1991, 8, 8),
+    age: DateTime.now().year - 1991,
+  ),
+  Person(
+    name: 'Dev',
+    dob: DateTime(1987, 9, 9),
+    age: DateTime.now().year - 1987,
+  ),
+  Person(
+    name: 'Jayraj',
+    dob: DateTime(1996, 10, 10),
+    age: DateTime.now().year - 1996,
+  ),
+  Person(
+    name: 'Aman Mishra',
+    dob: DateTime(1989, 11, 11),
+    age: DateTime.now().year - 1989,
+  ),
+  Person(
+    name: 'Piyush Kumar',
+    dob: DateTime(1994, 12, 12),
+    age: DateTime.now().year - 1994,
+  ),
+  Person(
+    name: 'Sachin Kumar',
+    dob: DateTime(1997, 1, 13),
+    age: DateTime.now().year - 1997,
+  ),
+  Person(
+    name: 'Aryansh Gupta',
+    dob: DateTime(1998, 2, 14),
+    age: DateTime.now().year - 1998,
+  ),
+  Person(
+    name: 'Vedant Agarwal',
+    dob: DateTime(1999, 3, 15),
+    age: DateTime.now().year - 1999,
+  ),
+  Person(
+    name: 'Arnav Shahi',
+    dob: DateTime(2000, 4, 16),
+    age: DateTime.now().year - 2000,
+  ),
+  Person(
+    name: 'Navneet Kumar',
+    dob: DateTime(1986, 5, 17),
+    age: DateTime.now().year - 1986,
+  ),
+  Person(
+    name: 'YashRaj Singh',
+    dob: DateTime(1993, 6, 18),
+    age: DateTime.now().year - 1993,
+  ),
+  Person(
+    name: 'Ayush Gautam',
+    dob: DateTime(1982, 7, 19),
+    age: DateTime.now().year - 1982,
+  ),
+  Person(
+    name: 'Abhay Kumar',
+    dob: DateTime(1984, 8, 20),
+    age: DateTime.now().year - 1984,
+  ),
+  
 ];
