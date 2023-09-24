@@ -74,3 +74,19 @@ A raw json file to be used as a dummy data.
 
 # References
 > image references: [How to contribute on github](https://www.dataschool.io/how-to-contribute-on-github/)
+> 
+
+<video width="400" height="300" controls>
+  <source src="https://github.com/karkau123/gdsc-assignment-1/assets/105882265/8a900321-f7bf-4a6c-a30a-70744962bf50" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="https://github.com/karkau123/gdsc-assignment-1/assets/105882265/21b1df7f-af47-4c9e-bb37-d927a001e59d" width="200" alt="Image 2">
+<img src="https://github.com/karkau123/gdsc-assignment-1/assets/105882265/01529a6f-28a7-43f5-94a6-097bcc001e71" width="200" alt="Image 3">
+<img src="https://github.com/karkau123/gdsc-assignment-1/assets/105882265/68b5d5f6-4b3b-4f8e-8ea2-d3bfcf7d379b" width="200" alt="Image 4">
+<img src="https://github.com/karkau123/gdsc-assignment-1/assets/105882265/77905ef8-d883-4b15-a0ac-730c32effbd5" width="200" alt="Image 5">
+
+
+
+https://github.com/karkau123/gdsc-assignment-1/assets/105882265/c4c3762a-65d2-47bd-b9c3-2ce43cc46edd
+
