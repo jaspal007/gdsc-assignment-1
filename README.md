@@ -74,10 +74,3 @@ A raw json file to be used as a dummy data.
 
 # References
 > image references: [How to contribute on github](https://www.dataschool.io/how-to-contribute-on-github/)
-
-<img src="https://github.com/karkau123/gdsc-assignment-1/assets/105882265/77905ef8-d883-4b15-a0ac-730c32effbd5" width="200" alt="Image 5">
-
-
-
-https://github.com/karkau123/gdsc-assignment-1/assets/105882265/c4c3762a-65d2-47bd-b9c3-2ce43cc46edd
-
