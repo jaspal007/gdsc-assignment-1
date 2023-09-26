@@ -1,4 +1,4 @@
-# multi_search
+# gdsc_assignment_anuj
 
 A new Flutter project.
 
