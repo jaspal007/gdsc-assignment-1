@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-import '../models/model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 
 class Landescape extends StatefulWidget {
   final String? searchQuery;
@@ -16,6 +18,22 @@ class Landescape extends StatefulWidget {
 
 class _LandescapeState extends State<Landescape> {
   // List<String> filteredItems = [];
+  List _items = [];
+
+  // Fetch content from the json file
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/sample.json');
+    final data = await json.decode(response);
+    setState(() {
+      _items = data["items"];
+    });
+  }
+   @override
+  void initState() {
+    super.initState();
+    // Call the readJson method when the app starts
+    readJson();
+  }
   String selectedSortOption = 'Relevance'; // Default sorting option
   List<dynamic> filteredItems = [];
   bool isEmpty = false;
@@ -36,7 +54,7 @@ class _LandescapeState extends State<Landescape> {
                 onChanged: (text) {
                   setState(() {
                     isEmpty = true;
-                    filteredItems = User.where((product) =>
+                    filteredItems = _items.where((product) =>
                             product[widget.searchQuery]
                                 .toLowerCase()
                                 .contains(text.toLowerCase()))
@@ -137,9 +155,9 @@ class _LandescapeState extends State<Landescape> {
                       },
                     )
                   : ListView.builder(
-                      itemCount: User.length,
+                      itemCount: _items.length,
                       itemBuilder: (context, index) {
-                        final user = User[index];
+                        final user = _items[index];
                         return Container(
                             padding: EdgeInsets.all(5),
                             height: 140,
@@ -190,19 +208,19 @@ class _LandescapeState extends State<Landescape> {
     setState(() {
       switch (option) {
         case 'Relevance':
-          filteredItems
-              .sort((a, b) => a["Relevance"].compareTo(a["Relevance"]));
-          User.sort((a, b) => a["Relevance"].compareTo(b["Relevance"]));
+          // filteredItems
+          //     .sort((a, b) => a["Relevance"].compareTo(a["Relevance"]));
+          _items.sort((a, b) => a["Relevance"].compareTo(b["Relevance"]));
 
           // Implement relevance-based sorting if needed
           break;
         case 'Low to High':
-          User.sort((a, b) => a["Name"].compareTo(b["Name"]));
+          _items.sort((a, b) => a["Name"].compareTo(b["Name"]));
 
           filteredItems.sort((a, b) => a['Name'].compareTo(b["Name"]));
           break;
         case 'High to Low':
-          User.sort((a, b) => b["Name"].compareTo(a["Name"]));
+          _items.sort((a, b) => b["Name"].compareTo(a["Name"]));
           filteredItems.sort((a, b) => b['Name'].compareTo(a["Name"]));
           break;
         case 'Date':
@@ -211,7 +229,7 @@ class _LandescapeState extends State<Landescape> {
           filteredItems.sort(
               (a, b) => b["Date Of Joining"].compareTo(a["Date Of Joining"]));
 
-          User.sort((a, b) {
+          _items.sort((a, b) {
             DateTime dateA = DateTime.parse(a["Date Of Joining"]);
             DateTime dateB = DateTime.parse(b["Date Of Joining"]);
             return dateA.compareTo(dateB);
