@@ -11,7 +11,7 @@
 3. 'package:flutter/services.dart':-To load JSON file from assets using rootBundle method defined inside 'services.dart'.
 
 ### Images of application
- !(/assets/images/WhatsApp%20Image%202023-09-27%20at%2013.53.23.jpeg)
+ ![Image of application in landscape mode](/assets/images/WhatsApp%20Image%202023-09-27%20at%2013.53.23.jpeg)
 
 
   
