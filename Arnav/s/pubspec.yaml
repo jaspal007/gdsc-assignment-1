@@ -52,7 +52,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  assets:
+    - assets/students.json
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -60,7 +61,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
 assets:
-    -assets/images/boy.jpeg
+  -assets/images/boy.jpeg
+  -assets/images/y.jpeg
+
+
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
