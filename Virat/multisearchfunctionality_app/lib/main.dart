@@ -111,90 +111,86 @@ class _MultiSearchHomePageState extends State<MultiSearchHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Get the screen size
-    final screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SearchXpress'),
         backgroundColor: Colors.blueGrey,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            'assets/searchlogo.jpeg',
-            height: 50,
-          ),
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                'assets/searchlogo.jpeg', // Replace with the correct path to your logo image
+                height: 50,
+              ),
+            ),
+            Expanded(
+              child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    searchQuery = value;
+                  });
+                  filterAndSort();
+                },
+                decoration: const InputDecoration(
+                  hintText: 'Search in SearchXpress',
+                  hintStyle: TextStyle(color: Colors.white),
+                  border: InputBorder.none, // Remove the border
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            DropdownButton<String>(
+              value: sortBy,
+              onChanged: (value) {
+                setState(() {
+                  sortBy = value!;
+                });
+                filterAndSort();
+              },
+              items: const [
+                DropdownMenuItem<String>(
+                  value: "relevance",
+                  child: Text(
+                    "Relevance",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                DropdownMenuItem<String>(
+                  value: "low_to_high",
+                  child: Text(
+                    "Low to High",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                DropdownMenuItem<String>(
+                  value: "high_to_low",
+                  child: Text(
+                    "High to Low",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                DropdownMenuItem<String>(
+                  value: "date",
+                  child: Text(
+                    "Date",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+              elevation: 2,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+              dropdownColor: Colors.grey,
+            ),
+          ],
         ),
       ),
+
       backgroundColor: Colors.grey,
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.all(screenSize.width * 0.02), // Adjust padding based on screen width
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          searchQuery = value;
-                        });
-                        filterAndSort();
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Search...',
-                        hintStyle: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  DropdownButton<String>(
-                    value: sortBy,
-                    onChanged: (value) {
-                      setState(() {
-                        sortBy = value!;
-                      });
-                      filterAndSort();
-                    },
-                    items: const [
-                      DropdownMenuItem<String>(
-                        value: "relevance",
-                        child: Text(
-                          "Relevance",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      DropdownMenuItem<String>(
-                        value: "low_to_high",
-                        child: Text(
-                          "Low to High",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      DropdownMenuItem<String>(
-                        value: "high_to_low",
-                        child: Text(
-                          "High to Low",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      DropdownMenuItem<String>(
-                        value: "date",
-                        child: Text(
-                          "Date",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                    elevation: 2,
-                    style: const TextStyle(
-                      color: Colors.black,
-                    ),
-                    dropdownColor: Colors.grey,
-                  ),
-                ],
-              ),
-            ),
             Expanded(
               child: ListView.builder(
                 itemCount: filteredEmployees.length,
