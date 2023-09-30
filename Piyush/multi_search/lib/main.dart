@@ -16,6 +16,7 @@ class _myappState extends State<myapp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.teal),
       home: NameListWidget(),
     );
