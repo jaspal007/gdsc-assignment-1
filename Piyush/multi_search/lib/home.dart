@@ -140,8 +140,3 @@ class _NameListWidgetState extends State<NameListWidget> {
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: NameListWidget(),
-  ));
-}
