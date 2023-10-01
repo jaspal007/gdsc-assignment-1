@@ -112,176 +112,132 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.lightBlue[100],
-      appBar: AppBar(
+    var media = MediaQuery.of(context);
+    var orientation = MediaQuery.of(context).orientation;
+    return SafeArea(
+      child: Scaffold(
+    
         backgroundColor: Colors.lightBlue[100],
-        title: const Text(
-          "\tFirst_Assignment",
-          style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 1),
+    
+        appBar: AppBar(
+          backgroundColor: Colors.lightBlue[100],
+          title: const Text(
+            "\tFirst_Assignment",
+            style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 1),
+          ),
+          actions: [
+            PopupMenuButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              onSelected: (value) => onSelected(context, value),
+              itemBuilder: (context) => [
+                const PopupMenuItem<int>(
+                  value: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text("Sort by Name"),
+                      Icon(Icons.sort_by_alpha_rounded)
+                    ],
+                  ),
+                ),
+                const PopupMenuItem<int>(
+                  value: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text("Sort by Date"),
+                      Icon(Icons.date_range_rounded),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
-        actions: [
-          PopupMenuButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            onSelected: (value) => onSelected(context, value),
-            itemBuilder: (context) => [
-              const PopupMenuItem<int>(
-                value: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text("Sort by Name"),
-                    Icon(Icons.sort_by_alpha_rounded)
-                  ],
-                ),
-              ),
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text("Sort by Date"),
-                    Icon(Icons.date_range_rounded)
-                  ],
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth > 600) {
-            // Landscape mode, use a two-column layout
-            return Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            const Text(
-                              "Search & Sort Function",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              child: TextFormField(
-                                controller: txtQuery,
-                                onChanged: search,
-                                decoration: InputDecoration(
-                                  hintText: "Search",
-                                  border: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.blue),
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide:
-                                        const BorderSide(color: Colors.blue),
-                                  ),
-                                  prefixIcon: const Icon(Icons.search),
-                                  suffixIcon: txtQuery.text.isEmpty
-                                      ? const SizedBox.shrink()
-                                      : IconButton(
-                                          onPressed: () {
-                                            txtQuery.text = "";
-                                            search(txtQuery.text);
-                                          },
-                                          icon: Icon(
-                                            Icons.clear,
-                                            color: Colors.blueGrey.shade700,
-                                          ),
-                                        ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // Add filters or other widgets for landscape mode here
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: _listView(persons),
-                ),
-              ],
-            );
-          } else {
-            // Portrait mode, use a single-column layout
-            return Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      const Text(
-                        "\tSearch & Sort Function",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        child: TextFormField(
-                          controller: txtQuery,
-                          onChanged: search,
-                          decoration: InputDecoration(
-                            hintText: "Search",
-                            border: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.blue),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide:
-                                  const BorderSide(color: Colors.blue),
-                            ),
-                            prefixIcon: const Icon(Icons.search),
-                            suffixIcon: txtQuery.text.isEmpty
-                                ? const SizedBox.shrink()
-                                : IconButton(
-                                    onPressed: () {
-                                      txtQuery.text = "";
-                                      search(txtQuery.text);
-                                    },
-                                    icon: Icon(
-                                      Icons.clear,
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                  ),
+        body: Column(
+          children: [
+            const Heading(),
+                 SizedBox(
+                    height: (orientation == Orientation.portrait)
+                        ? media.size.height * 0.10
+                        : media.size.height * 0.10,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: media.size.width * 0.9,
+                          height: media.size.height * 0.1,
+                          child: Center(
+                            child: searchMethod()
                           ),
+                        ), 
+                        ],
+                    ),
+                  ),
+            _listView(persons)
+          ],
+        ),
+        ),
+      );
+  }
+
+  Padding searchMethod() {
+      var orientation = MediaQuery.of(context).orientation;
+    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      child: TextFormField(
+                        controller: txtQuery,
+                        onChanged: search,
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          border: OutlineInputBorder(
+                            borderSide:
+                                 BorderSide(color: (orientation == Orientation.portrait) ? Colors.blue : Colors.transparent),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide:
+                                BorderSide(color: (orientation == Orientation.portrait) ? Colors.blue : Colors.transparent),
+                          ),
+                          prefixIcon: const Icon(Icons.search),
+                          suffixIcon: txtQuery.text.isEmpty
+                              ? const SizedBox.shrink()
+                              : IconButton(
+                                  onPressed: () {
+                                    txtQuery.text = "";
+                                    search(txtQuery.text);
+                                  },
+                                  icon: Icon(
+                                    Icons.clear,
+                                    color: Colors.blueGrey.shade700,
+                                  ),
+                                ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                _listView(persons),
-              ],
-            );
-          }
-        },
-      ),
+                    );
+  }
+}
+
+
+class Heading extends StatelessWidget {
+  const Heading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      "\tSearch & Sort Function",
+      style: TextStyle(
+          fontWeight: FontWeight.bold, fontSize: 18),
     );
   }
 }
+
+
 
 Widget _listView(persons) {
   return Expanded(
