@@ -8,7 +8,7 @@ void main() => runApp(MaterialApp(
     ));
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -77,153 +77,152 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        bool isLandscape = orientation == Orientation.landscape;
-
-        return Scaffold(
-          backgroundColor: Colors.deepPurpleAccent,
-          appBar: AppBar(
-            title: Text("Search Bar"),
-            centerTitle: true,
-            backgroundColor: Colors.deepPurpleAccent,
-            elevation: 0.0,
-          ),
-          body: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Search and Sort-->',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "${selectedSortOption}",
-                      style: TextStyle(
+    return Scaffold(
+      backgroundColor: Colors.deepPurpleAccent,
+      appBar: AppBar(
+        title: Text("Search Bar"),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurpleAccent,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'Search and Sort-->',
+                    style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                TextField(
-                  onChanged: (value) => updateList(value),
-                  style: TextStyle(
-                    color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Color(0xff302360),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Icon(Icons.search),
-                    suffixIcon: PopupMenuButton<String>(
-                      onSelected: (String value) {
-                        setState(() {
-                          selectedSortOption = value;
-                          sortDisplayList();
-                        });
-                      },
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<String>>[
-                        const PopupMenuItem<String>(
-                          value: 'Relevance',
-                          child: Text('Relevance'),
-                        ),
-                        const PopupMenuItem<String>(
-                          value: 'LowToHigh',
-                          child: Text('Low to High'),
-                        ),
-                        const PopupMenuItem<String>(
-                          value: 'HighToLow',
-                          child: Text('High to Low'),
-                        ),
-                        const PopupMenuItem<String>(
-                          value: 'Date',
-                          child: Text('Date'),
-                        ),
-                      ],
-                    ),
-                    prefixIconColor: Colors.white,
-                    suffixIconColor: Colors.white,
-                    hintText: 'Enter here...',
-                    hintStyle: TextStyle(
-                      fontFamily: "Poppins",
-                      letterSpacing: .7,
-                      height: 1.5,
+                  Text(
+                    "${selectedSortOption}",
+                    style: TextStyle(
                       color: Colors.white,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
                     ),
                   ),
+                ],
+              ),
+              TextField(
+                onChanged: (value) => updateList(value),
+                style: TextStyle(
+                  color: Colors.white,
                 ),
-                SizedBox(height: 20),
-                Expanded(
-                  child: filteredList.isEmpty
-                      ? Center(
-                          child: Text(
-                            "No Results Found",
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xff302360),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  prefixIcon: Icon(Icons.search),
+                  suffixIcon: PopupMenuButton<String>(
+                    onSelected: (String value) {
+                      setState(() {
+                        selectedSortOption = value;
+                        sortDisplayList();
+                      });
+                    },
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                        value: 'Relevance',
+                        child: Text('Relevance'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'LowToHigh',
+                        child: Text('Low to High'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'HighToLow',
+                        child: Text('High to Low'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'Date',
+                        child: Text('Date'),
+                      ),
+                    ],
+                  ),
+                  prefixIconColor: Colors.white,
+                  suffixIconColor: Colors.white,
+                  hintText: 'Enter here...',
+                  hintStyle: TextStyle(
+                    fontFamily: "Poppins",
+                    letterSpacing: .7,
+                    height: 1.5,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              filteredList.isEmpty
+                  ? Center(
+                      child: Text(
+                        "No Results Found",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: filteredList.length,
+                      itemBuilder: (context, index) => Card(
+                        color: Colors.purple[900],
+                        child: ListTile(
+                          title: Text(
+                            filteredList[index]["Name"]!,
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: filteredList.length,
-                          itemBuilder: (context, index) => Card(
-                            color: Colors.purple[900],
-                            child: ListTile(
-                              title: Text(
-                                filteredList[index]["Name"]!,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    filteredList[index]["id"]!,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  Text(
-                                    filteredList[index]["School"]!,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  Text(
-                                    filteredList[index]["Date Of Joining"]!,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
                             ),
                           ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                filteredList[index]["id"]!,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Text(
+                                filteredList[index]["School"]!,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Text(
+                                filteredList[index]["Date Of Joining"]!,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                )
-              ],
-            ),
+                      ),
+                    ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
