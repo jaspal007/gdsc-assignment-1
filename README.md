@@ -1,3 +1,5 @@
+
+
 # GDSC ASSIGNMENT 1
 > DATE: 18 Sept, 2023 (MONDAY)
 
@@ -74,3 +76,4 @@ A raw json file to be used as a dummy data.
 
 # References
 > image references: [How to contribute on github](https://www.dataschool.io/how-to-contribute-on-github/)
+
