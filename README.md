@@ -1,5 +1,3 @@
-
-
 # GDSC ASSIGNMENT 1
 > DATE: 18 Sept, 2023 (MONDAY)
 
