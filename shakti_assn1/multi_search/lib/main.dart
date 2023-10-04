@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:flutter/services.dart'
-    show rootBundle; // Import the JSON package
+import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  const Homepage({Key? key});
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -29,6 +28,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   Orientation _orientation = Orientation.portrait;
+  List<Map<String, dynamic>> jsonList = []; // Store your JSON data
   List<Map<String, dynamic>> displayList = [];
   bool ascendingOrder = true; // To track sorting order
   double _appBarHeight = 50.0;
@@ -39,17 +39,10 @@ class _HomepageState extends State<Homepage> {
     String jsonData = await rootBundle.loadString('assets/data.json');
 
     // Parse the JSON data into a list of maps
-    List<dynamic> jsonList = json.decode(jsonData);
+    jsonList = json.decode(jsonData).cast<Map<String, dynamic>>();
 
     setState(() {
-      displayList = jsonList.map((item) {
-        return {
-          'id': item['id'],
-          'Name': item['Name'],
-          'School': item['School'],
-          'Date Of Joining': item['Date Of Joining'],
-        };
-      }).toList();
+      displayList = jsonList;
     });
   }
 
@@ -81,8 +74,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     // Check the current orientation
-    bool isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
     if (!isPortrait) {
       _appBarHeight = 40.0;
@@ -98,10 +90,11 @@ class _HomepageState extends State<Homepage> {
               child: Text(
                 "Search",
                 style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    fontSize: 30.0,
-                    letterSpacing: 0.5,
-                    fontWeight: FontWeight.bold),
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: 30.0,
+                  letterSpacing: 0.5,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             backgroundColor: Color.fromARGB(255, 245, 18, 18),
@@ -147,21 +140,14 @@ class _HomepageState extends State<Homepage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // SizedBox(height: 5.0),
               SizedBox(
                 height: _searchBarHeight,
                 child: TextField(
                   onChanged: (text) {
                     setState(() {
-                      displayList = displayList
-                          .where((item) =>
-                              item['Name']!
-                                  .toLowerCase()
-                                  .contains(text.toLowerCase()) ||
-                              item['School']!
-                                  .toLowerCase()
-                                  .contains(text.toLowerCase()))
-                          .toList();
+                      displayList = jsonList.where((item) =>
+                          item['Name']!.toLowerCase().contains(text.toLowerCase()) ||
+                          item['School']!.toLowerCase().contains(text.toLowerCase())).toList();
                     });
                   },
                   style: TextStyle(color: Colors.white),
@@ -178,61 +164,57 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
-              // SizedBox(height: 5.0),
               Expanded(
                 child: displayList.length == 0
                     ? Center(
                         child: Text(
-                          "No Results!-",
+                          "No Results!",
                           style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.bold),
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       )
-                    : Expanded(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ListView.builder(
-                                physics: ClampingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: displayList.length,
-                                itemBuilder: (context, index) => ListTile(
-                                  title: Text(
-                                    displayList[index]["Name"]!,
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 122, 2, 2),
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "School:${displayList[index]["School"]!}",
-                                        style: TextStyle(
-                                          color: Color.fromARGB(255, 5, 5, 5),
-                                        ),
-                                      ),
-                                      Text(
-                                        "Joining: ${displayList[index]["Date Of Joining"]!}",
-                                        textAlign: TextAlign.justify,
-                                        style: TextStyle(
-                                          wordSpacing: 10.0,
-                                          color:
-                                              Color.fromARGB(255, 30, 21, 21),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15.0),
-                                    ],
+                    : SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ListView.builder(
+                              physics: ClampingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: displayList.length,
+                              itemBuilder: (context, index) => ListTile(
+                                title: Text(
+                                  displayList[index]["Name"]!,
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 122, 2, 2),
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "School: ${displayList[index]["School"]!}",
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 5, 5, 5),
+                                      ),
+                                    ),
+                                    Text(
+                                      "Joining: ${displayList[index]["Date Of Joining"]!}",
+                                      textAlign: TextAlign.justify,
+                                      style: TextStyle(
+                                        wordSpacing: 10.0,
+                                        color: Color.fromARGB(255, 30, 21, 21),
+                                      ),
+                                    ),
+                                    SizedBox(height: 15.0),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
               ),
