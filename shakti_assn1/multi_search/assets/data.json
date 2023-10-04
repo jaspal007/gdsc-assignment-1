@@ -1,4 +1,4 @@
-   List<Map<String, String>> detailList = [
+[
     {
       "id": "bc929f27-3cdb-3d66-b1e4-b644bab92d5d",
       "Name": "Mr. Judge McClure",
@@ -149,13 +149,7 @@
       "School": "Moen LLC",
       "Date Of Joining": "2023-05-26 10:25:34"
     }
-  ];
+  ]
 
 
-//   class Sdata {
-//   String? id;
-//   String? Name;
-//   String? School;
-//   String? Date_of_Joining;
-//   Sdata(this.id, this.Name, this.School, this.Date_of_Joining);
-// }
+
